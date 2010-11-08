@@ -6,10 +6,14 @@
 	  when index.cfm is called.  This is convenirent to have in development time.  You shouldn't
 	  do this in production
 	*/	
-	ormreload();
+	
 
+
+
+
+	
 
 	departments = EntityLoad("department");
 	
-	dump( departments );
+	writedump( departments );
 </cfscript>

@@ -15,10 +15,6 @@ component output="false"{
 	this.ormsettings.logSQL = true;
 	this.ormsettings.cflocation = "models";
 	
-	if( structKeyExists(url, "rebuild") ){
-		this.ormsettings.dbcreate = "dropcreate";
-	}
-	
 	
 	/**
 	 * @hint The application first starts
@@ -31,7 +27,12 @@ component output="false"{
 	 * @hint A request starts
 	 */
 	public boolean function onRequestStart(String targetPage){
-
+	
+		if( structKeyExists(url, "rebuild") ){
+			this.ormsettings.dbcreate = "dropcreate";
+			include "install/setup.cfm";
+		}
+	
 		return true;
 	}	
 }

@@ -3,24 +3,26 @@
 	<!--- Simple nav links --->
 	<a href="/index.cfm?rebuild=1">Rebuild</a> / <a href="views/dbdump.cfm">DB info</a>
 	<cfscript>
-		// INSERTS
-		if( structKeyExists( form, "departname_name" ) AND len( trim( form.departname_name ) ) ){
-			d = EntityNew( 'department' );
-			d.setDeptname( form.departname_name );
-			EntitySave( d );
-			ormflush();
-		}
 		
 		// DELETES
-		if( structKeyExists( url, "del" ){
+		if( structKeyExists( url, "del" ) ){
 			if( len( trim( url.deptid ) ) ){
-				
+				application.departmentObj.delete( deptid=url.deptid );
 			}	
 		
+		}	
+	
+		// INSERTS
+		if( structKeyExists( form, "departname_name" ) AND len( trim( form.departname_name ) ) ){
+			application.departmentObj.create( form.departname_name );
 		}
+
+		
+		
+		
 		
 		// get all departments
-		departments = EntityLoad("department");
+		departments = application.departmentObj.listAll();;
 		
 		if( structKeyExists( url, 'deptid' ) ) managers = EntityLoad("manager", url.deptid) ; 
 		
@@ -28,6 +30,8 @@
 		//managers = EntityLoad("manager");
 		
 	</cfscript>
+	
+	
 	<cfoutput>
 		<table>
 		<tr>
@@ -45,7 +49,7 @@
 			<td>
 				<form action="index.cfm" method="post">
 					Manager name: <input type="text" name="managername" />
-					<input type="hidden" name="deptid" value="#url.deptid#" />
+					<!---<input type="hidden" name="deptid" value="#url.deptid#" />--->
 					<input type="submit" name="dept_add" value="Add Dept." />
 				</form>				
 			</td>
@@ -60,7 +64,7 @@
 				</cfloop>
 			</td>
 			<td>
-				<cfdump var="#managers#">
+				<!---<cfdump var="#managers#">--->
 			</td>
 			<td></td>
 		</tr>

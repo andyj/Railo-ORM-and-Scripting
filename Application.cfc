@@ -20,6 +20,7 @@ component output="false"{
 	 * @hint The application first starts
 	 */
 	public boolean function onApplicationStart(){
+		application.departmentObj = createObject('services.department').init( this.datasource );
 		return true;
 	}	
 	
@@ -29,9 +30,12 @@ component output="false"{
 	public boolean function onRequestStart(String targetPage){
 	
 		if( structKeyExists(url, "rebuild") ){
+			onApplicationStart();
 			this.ormsettings.dbcreate = "dropcreate";
-			include "install/setup.cfm";
+			application.departmentObj.create("Human resources");
 		}
+	
+		//writeDump(var=application.departmentObj, abort=1);
 	
 		return true;
 	}	

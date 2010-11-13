@@ -18,6 +18,13 @@
 	</style>
 </head>
 <body>
+	<h1>Scripting and ORM examples</h1>
+	<hr>
+	<!--- Simple nav links --->
+	<a href="/index.cfm">Home</a> /
+	<a href="/index.cfm?rebuild=1">Rebuild</a> /
+	<a href="views/dbdump.cfm">DB info</a>
+	<hr>
 	<div id="container">
 <cfelse>
 	</div><!-- end container -->

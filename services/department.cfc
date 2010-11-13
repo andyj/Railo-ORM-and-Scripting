@@ -24,7 +24,9 @@ component  displayname="Department" hint="I am a service CFC for the department"
 		return d;
 	}	
 	
-	public void function read(){
+	public model.department function read(numeric deptid){
+		var d = entityLoad('department', arguments.deptid, true);
+		return d;
 	}	
 	
 	public void function update(){
